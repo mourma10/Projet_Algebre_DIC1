@@ -23,7 +23,6 @@ def presentation():  # Ma Présentation
 
 
 def __main__():
-    print("test")
     presentation()
     root.mainloop()
 
