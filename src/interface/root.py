@@ -102,7 +102,7 @@ def root_syslineaires_menu():
                           relief="raised", font="/font/myfont 9 bold", bg="#eee", fg="black", activebackground="#dcc")
     bouton_prec.pack()
     bouton_quitt.pack()
-    canvas.create_window(dimx_ / 4 + 30, 150, dimy_ / 4 - 10, window=bouton_gauss)
+    canvas.create_window(dimx_ / 4 + 30, dimy_ / 4 - 10, window=bouton_gauss)
     canvas.create_window(dimx_ / 16 - 10, dimy_ - 20, window=bouton_prec)
     canvas.create_window(dimx_ - 40, dimy_ - 20, window=bouton_quitt)
     canvas.pack()
