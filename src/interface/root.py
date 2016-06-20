@@ -135,12 +135,17 @@ def root_opmatrices_menu():  # Choix de l'opération à affectuer
     trans = Button(root, text="   Transposee matrice     ", command=root_bouton_transposee, relief="raised",
                    font="/font/myfont 9 bold",
                    bg="#eee", fg="black", activebackground="#dcc")
+    bouton_valeurpropre = Button(root, command="",
+                                 text="Valeurs Propres matrice",
+                                 relief="raised", font="/font/myfont 9 bold", bg="#eee", fg="black",
+                                 activebackground="#dcc")
     bouton_prec.pack()
     bouton_quitt.pack()
     canvas.create_window(dimx_ / 3 - 40, dimy_ / 3 - 15, window=morse)
     canvas.create_window(dimx_ / 3 - 40, 11 * (dimy_ / 24) - 15, window=inverser)
     canvas.create_window(7 * (dimx_ / 10) - 15, dimy_ / 2 + 35, window=determinant)
     canvas.create_window(dimx_ / 3 - 40, dimy_ / 2 + 35, window=trans)
+    canvas.create_window(dimx_ / 3 - 40, dimy_ / 2 + 115, window=bouton_valeurpropre)
     canvas.create_window(7 * (dimx_ / 10) - 15, dimy_ / 3 - 15, window=somme)
     canvas.create_window(7 * (dimx_ / 10) - 15, 11 * (dimy_ / 24) - 15, window=produit)
     canvas.create_window(dimx_ / 16 - 10, dimy_ - 20, window=bouton_prec)
