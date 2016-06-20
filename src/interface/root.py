@@ -61,7 +61,7 @@ def root_navigation(fonction, canvas, back):
     bouton_prec.pack()
     bouton_quitt.pack()
     canvas.create_window(dimx_ / 2 + 18, dimy_ - 20, window=bouton_effacer)
-    canvas.create_window(dimx_ / 16 - 10, dimy_ - 20, window=bouton_prec)
+    canvas.create_window(60, dimy_ - 20, window=bouton_prec)
     canvas.create_window(dimx_ - 40, dimy_ - 20, window=bouton_quitt)
 
 
