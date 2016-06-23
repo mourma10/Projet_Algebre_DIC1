@@ -2,7 +2,9 @@
 
 try:
     from Tkinter import Tk, Canvas
-except Tk:
+except ImportError:
+    Tk = None
+    Canvas = None
     print("veuillez installer Tkinter : sudo apt-get install python-tk")
     exit()
 
@@ -21,7 +23,7 @@ def create_root():
     x = w_ / 2 - dimx_ / 2
     y = h / 2 - dimy_ / 2
     iam_root.geometry("%dx%d+%d+%d" % ((dimx_, dimy_) + (x, y)))
-    iam_root.resizable(width=False, height=False)
+    iam_root.resizable(False, False)
     return iam_root
 
 
@@ -54,32 +56,34 @@ def root_navigation(fonction, canvas, back):
                             bg="#eee", fg="black", activebackground="#dcc")
     bouton_prec = Button(root, text="Precedent", relief="raised", font="/font/myfont 8 bold", command=back,
                          bg="#eee", fg="black", activebackground="#dcc")
-    bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="raised", font="/font/myfont 8 bold",
+    bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="raised",
+                          font="/font/myfont 8 bold",
                           bg="#eee",
                           fg="black", activebackground="#dcc")
-    bouton_effacer.pack()
-    bouton_prec.pack()
-    bouton_quitt.pack()
     canvas.create_window(dimx_ / 2 + 18, dimy_ - 20, window=bouton_effacer)
     canvas.create_window(60, dimy_ - 20, window=bouton_prec)
     canvas.create_window(dimx_ - 40, dimy_ - 20, window=bouton_quitt)
+    canvas.pack()
 
 
 def root_menu():
     root_clear()
     canvas = creer_canvas(root)
     canvas.create_text(dimx_ / 2 - 10, 20, text="   MENU", font="/font/myfont 20 bold", fill="#544")
-    bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="raised", font="/font/myfont 8 bold",
+    bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="raised",
+                          font="/font/myfont 8 bold",
                           bg="#eee",
                           fg="black", activebackground="#dcc")
-    bouton_operation = Button(root, command=root_opmatrices_menu, text="Opérations Sur Les Matrices", relief="raised",
+    bouton_operation = Button(root, command=root_opmatrices_menu, text="Opérations Sur Les Matrices",
+                              relief="raised",
                               font="/font/myfont 10 bold", bg="#eee", fg="black", activebackground="#dcc")
     bouton_record = Button(root, command=root_bouton_enregistrement, text="  Enrégistreur Vocal Python  ",
-                           relief="raised", font="/font/myfont 10 bold", bg="#eee", fg="black", activebackground="#dcc")
+                           relief="raised", font="/font/myfont 10 bold", bg="#eee", fg="black",
+                           activebackground="#dcc")
     bouton_syslin = Button(root, command=root_syslineaires_menu,
                            text="      Systémes Linéaires       ",
-                           relief="raised", font="/font/myfont 10 bold", bg="#eee", fg="black", activebackground="#dcc")
-    bouton_quitt.pack()
+                           relief="raised", font="/font/myfont 10 bold", bg="#eee", fg="black",
+                           activebackground="#dcc")
     canvas.create_window(dimx_ / 4 + 30, dimy_ / 4 - 12, window=bouton_operation)
     canvas.create_window(3 * (dimx_ / 4) + 10, dimy_ / 4 - 12, window=bouton_record)
     canvas.create_window(dimx_ / 4 + 30, dimy_ / 2 - 20, window=bouton_syslin)
@@ -92,16 +96,17 @@ def root_syslineaires_menu():
     canvas = creer_canvas(root)
     bouton_prec = Button(root, text="Precedent", relief="raised", font="/font/myfont 8 bold", command=root_menu,
                          bg="#eee", fg="black", activebackground="#dcc")
-    bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="raised", font="/font/myfont 8 bold",
+    bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="raised",
+                          font="/font/myfont 8 bold",
                           bg="#eee",
                           fg="black", activebackground="#dcc")
-    canvas.create_text(520, 20, text="  Veuillez choisir une méthode s'il vous plaît.", font="/font/myfont 18 bold",
+    canvas.create_text(520, 20, text="  Veuillez choisir une méthode s'il vous plaît.",
+                       font="/font/myfont 18 bold",
                        fill="#544")
     bouton_gauss = Button(root, command=root_bouton_methodegauss,
                           text="Methode de GAUSS",
-                          relief="raised", font="/font/myfont 9 bold", bg="#eee", fg="black", activebackground="#dcc")
-    bouton_prec.pack()
-    bouton_quitt.pack()
+                          relief="raised", font="/font/myfont 9 bold", bg="#eee", fg="black",
+                          activebackground="#dcc")
     canvas.create_window(dimx_ / 4 + 30, dimy_ / 4 - 10, window=bouton_gauss)
     canvas.create_window(dimx_ / 16 - 10, dimy_ - 20, window=bouton_prec)
     canvas.create_window(dimx_ - 40, dimy_ - 20, window=bouton_quitt)
@@ -113,7 +118,8 @@ def root_opmatrices_menu():  # Choix de l'opération à affectuer
     canvas = creer_canvas(root)
     bouton_prec = Button(root, text="Precedent", relief="raised", font="/font/myfont 8 bold", command=root_menu,
                          bg="#eee", fg="black", activebackground="#dcc")
-    bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="raised", font="/font/myfont 8 bold",
+    bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="raised",
+                          font="/font/myfont 8 bold",
                           bg="#eee",
                           fg="black", activebackground="#dcc")
     canvas.create_text(dimx_ / 2 + 10, 20, text="  Veuillez choisir une opération s\'il vous plaît.",
@@ -129,7 +135,8 @@ def root_opmatrices_menu():  # Choix de l'opération à affectuer
                    bg="#eee", fg="black", activebackground="#dcc")
     inverser = Button(root, text="    Inverse d'une matrice", command=root_bouton_inverse, relief="raised",
                       font="/font/myfont 9 bold", bg="#eee", fg="black", activebackground="#dcc")
-    determinant = Button(root, text="   Determinant matrice     ", command=root_bouton_determinant, relief="raised",
+    determinant = Button(root, text="   Determinant matrice     ", command=root_bouton_determinant,
+                         relief="raised",
                          font="/font/myfont 9 bold",
                          bg="#eee", fg="black", activebackground="#dcc")
     trans = Button(root, text="   Transposee matrice     ", command=root_bouton_transposee, relief="raised",
@@ -139,8 +146,6 @@ def root_opmatrices_menu():  # Choix de l'opération à affectuer
                                  text="Valeurs Propres matrice",
                                  relief="raised", font="/font/myfont 9 bold", bg="#eee", fg="black",
                                  activebackground="#dcc")
-    bouton_prec.pack()
-    bouton_quitt.pack()
     canvas.create_window(dimx_ / 3 - 40, dimy_ / 3 - 15, window=morse)
     canvas.create_window(dimx_ / 3 - 40, 11 * (dimy_ / 24) - 15, window=inverser)
     canvas.create_window(7 * (dimx_ / 10) - 15, dimy_ / 2 + 35, window=determinant)
@@ -156,7 +161,8 @@ def root_opmatrices_menu():  # Choix de l'opération à affectuer
 def root_bouton_methodegauss():
     root_clear()
     canvas = creer_canvas(root)
-    canvas.create_text(dimx_ / 2 + 40, dimy_ / 32, text="Resolution Systemes Lineaires", font="/font/myfont 9 bold",
+    canvas.create_text(dimx_ / 2 + 40, dimy_ / 32, text="Resolution Systemes Lineaires",
+                       font="/font/myfont 9 bold",
                        fill="black")
     saisie_1matrice(root, canvas, affiche_saisiegauss)
     root_navigation(root_bouton_methodegauss, canvas, root_syslineaires_menu)
@@ -165,7 +171,8 @@ def root_bouton_methodegauss():
 def root_bouton_morse():  # (On instancie la fonction saisie_1mat pour le stockage morse:ici saiz=affiche_saisiemorse
     root_clear()
     canvas = creer_canvas(root)
-    canvas.create_text(dimx_ / 2 + 40, dimy_ / 32, text="Stockage morse d'une matrice", font="/font/myfont 9 bold",
+    canvas.create_text(dimx_ / 2 + 40, dimy_ / 32, text="Stockage morse d'une matrice",
+                       font="/font/myfont 9 bold",
                        fill="black")
     saisie_1matrice(root, canvas, affiche_saisiemorse)
     root_navigation(root_bouton_morse, canvas, root_opmatrices_menu)
