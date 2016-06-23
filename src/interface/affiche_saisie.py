@@ -3,7 +3,7 @@ from Tkinter import Entry
 from .operations import *
 
 
-def saisie_2matrices(window, canvas, op):  # Saisie nombre de lignes et de colonnes de deux matrices  (Prototype)
+def saisie_2matrices(window, canvas, op):
     canvas.create_text(60, 20, text="Donner N1,C1", font="/font/myfont 10 bold", fill="black")
     canvas.create_text(60, 60, text="Donner N2,C2", font="/font/myfont 10 bold", fill="black")
     ligne1 = Entry(window, relief="raised", width=3, bg="#eee")
@@ -18,7 +18,6 @@ def saisie_2matrices(window, canvas, op):  # Saisie nombre de lignes et de colon
                        command=lambda: op(window, canvas, ligne1.get(), col1.get(), ligne2.get(),
                                           col2.get(), bouton_ok), bg="#eee", fg="black",
                        activebackground="#dcc", width=3)
-    bouton_ok.pack()
     canvas.create_window(150, 20, window=ligne1)
     canvas.create_window(220, 20, window=col1)
     canvas.create_window(150, 60, window=ligne2)
@@ -27,7 +26,7 @@ def saisie_2matrices(window, canvas, op):  # Saisie nombre de lignes et de colon
     canvas.pack()
 
 
-def saisie_1matrice(window, canvas, saiz):  # Saisie nbre de lignes et de colonnes d'une matrice (Prototype)
+def saisie_1matrice(window, canvas, saiz):
     canvas.create_text(50, 20, text="Donner N", font="/font/myfont 10 bold", fill="black")
     ligne = Entry(window, relief="raised", width=3, bg="#eee")
     ligne.pack()
@@ -35,14 +34,12 @@ def saisie_1matrice(window, canvas, saiz):  # Saisie nbre de lignes et de colonn
     bouton_ok = Button(window, text="Ok", relief="raised", font="/font/myfont 6 bold",
                        command=lambda: saiz(window, canvas, ligne.get(), bouton_ok), bg="#eee", fg="black",
                        activebackground="#dcc", width=3)
-    bouton_ok.pack()
     canvas.create_window(150, 20, window=ligne)
     canvas.create_window(240, 20, window=bouton_ok)
     canvas.pack()
 
 
-def affiche_saisie_1matrice(window, canvas, n, bouton, res):  # Affichage pour la saisie des elements de la matrice(
-    # Prototype)
+def affiche_saisie_1matrice(window, canvas, n, bouton, res):
     try:
         n = int(n)
         if n == 0:
@@ -58,7 +55,6 @@ def affiche_saisie_1matrice(window, canvas, n, bouton, res):  # Affichage pour l
                            activebackground="#dcc",
                            width=3,
                            relief="raised", command=lambda: res(window, canvas, case, n, bouton_ok))
-        bouton_ok.pack()
         canvas.create_text(20, 100 + (35 * n / 2) - 20, text="A=", font="/font/myfont 13", fill="black")
         canvas.create_window(50 + 35 * n + 30, 100 + (35 * n / 2) - 20, window=bouton_ok)
     except ValueError:
@@ -66,9 +62,7 @@ def affiche_saisie_1matrice(window, canvas, n, bouton, res):  # Affichage pour l
         return -1
 
 
-def affiche_saisie_2matrices(window, canvas, a, b, c, d, bouton, res, typeop):  # Affichage pour la saisie(case par
-    # case) de
-    # deux matrices (Prototype)
+def affiche_saisie_2matrices(window, canvas, a, b, c, d, bouton, res, typeop):
     try:
         a = int(a)
         b = int(b)
@@ -102,7 +96,6 @@ def affiche_saisie_2matrices(window, canvas, a, b, c, d, bouton, res, typeop):  
         bouton_ok = Button(window, text="Ok", relief="raised",
                            command=lambda: res(window, canvas, case1, case2, a, b, c, d, bouton_ok),
                            bg="#eee", fg="black", activebackground="#dcc", font="/font/myfont 6 bold", width=3)
-        bouton_ok.pack()
         canvas.create_text(20, 100 + (30 * a / 2) - 20, text="A=", font="/font/myfont 13", fill="black")
         canvas.create_text(370, 100 + (30 * a / 2) - 20, text="B=", font="/font/myfont 13", fill="black")
         canvas.create_text((400 + 50 + 30 * b) / 2 - 10, 100 + (30 * b / 2) - 20, text=sign,
@@ -141,12 +134,11 @@ def affiche_saisiegauss(window, canvas, n1, bouton):
         return -1
 
 
-def affiche_saisiemorse(window, canvas, n,
-                        bouton):  # On instancie affiche_saisie pour le stockage morse:ici res=stock_morse
+def affiche_saisiemorse(window, canvas, n, bouton):
     affiche_saisie_1matrice(window, canvas, n, bouton, operation_stockmorse)
 
 
-def affiche_saisieinverse(window, canvas, n, bouton):  # On instancie affiche_saisie pour l'inverse:ici res=inverse
+def affiche_saisieinverse(window, canvas, n, bouton):
     affiche_saisie_1matrice(window, canvas, n, bouton, operation_inverse)
 
 
@@ -158,13 +150,11 @@ def affiche_saisietrans(window, canvas, n, bouton):
     affiche_saisie_1matrice(window, canvas, n, bouton, operation_transposee)
 
 
-def affiche_saisiesomme(window, canvas, nb1, nb2, nb3,
-                        nb4, bouton):  # On instancie la fonction todo_op pour la somme:ici res=affiche_somme
+def affiche_saisiesomme(window, canvas, nb1, nb2, nb3, nb4, bouton):
     affiche_saisie_2matrices(window, canvas, nb1, nb2, nb3, nb4, bouton, operation_somme, "somme")
 
 
-def affiche_saisieproduit(window, canvas, nb1, nb2, nb3,
-                          nb4, bouton):  # On instancie la fonction todo_op pour le produit:ici res=affiche_produit
+def affiche_saisieproduit(window, canvas, nb1, nb2, nb3, nb4, bouton):
     affiche_saisie_2matrices(window, canvas, nb1, nb2, nb3, nb4, bouton, operation_produit, "produit")
 
 # M.TALL 2015-2016
