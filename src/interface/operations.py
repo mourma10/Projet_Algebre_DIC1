@@ -6,15 +6,14 @@ from Tkinter import Button
 from tkMessageBox import showerror, showinfo
 
 
-def operation_produit(window, canvas, entree1, entree2, nb1, nb2, nb3, nb4,
-                      bouton):  # Affiche le produit de deux matrices
+def operation_produit(window, canvas, mat1, mat2, nb1, nb2, nb3, nb4, bouton):
     try:
         for a in range(nb1):
             for b in range(nb2):
-                float(entree1[a][b].get())
+                float(mat1[a][b].get())
         for x in range(nb3):
             for y in range(nb4):
-                float(entree2[x][y].get())
+                float(mat2[x][y].get())
     except ValueError:
         showerror("Erreur", "Veuillez saisir des réels!")
         return -1
@@ -25,7 +24,7 @@ def operation_produit(window, canvas, entree1, entree2, nb1, nb2, nb3, nb4,
             for j in range(nb4):
                 produit[i][j] = 0
                 for k in range(nb2):
-                    produit[i][j] += float(entree1[i][k].get()) * float(entree2[k][j].get())
+                    produit[i][j] += float(mat1[i][k].get()) * float(mat2[k][j].get())
                 prod[i][j] = Button(window, text=produit[i][j], relief="raised", width=1, height=1,
                                     font="/font/myfont 9",
                                     bg="#eee")
@@ -33,14 +32,14 @@ def operation_produit(window, canvas, entree1, entree2, nb1, nb2, nb3, nb4,
     canvas.create_text(200, 350 + (40 * nb1 / 2) - 20, text="A * B =", font="/font/myfont 13", fill="black")
 
 
-def operation_somme(window, canvas, entree1, entree2, nb1, nb2, nb3, nb4, bouton):  # Affiche la somme de deux matrices
+def operation_somme(window, canvas, mat1, mat2, nb1, nb2, nb3, nb4, bouton):
     try:
         for a in range(nb1):
             for b in range(nb2):
-                float(entree1[a][b].get())
+                float(mat1[a][b].get())
         for x in range(nb3):
             for y in range(nb4):
-                float(entree2[x][y].get())
+                float(mat2[x][y].get())
     except ValueError:
         showerror("Erreur", "Veuillez saisir des réels!")
         return -1
@@ -48,13 +47,13 @@ def operation_somme(window, canvas, entree1, entree2, nb1, nb2, nb3, nb4, bouton
     somme = [[0] * nb3 for _ in range(nb1)]
     for i in range(nb4):
         for j in range(nb2):
-            somme[i][j] = Button(window, text=float(entree1[i][j].get()) + float(entree2[i][j].get()), width=1,
+            somme[i][j] = Button(window, text=float(mat1[i][j].get()) + float(mat2[i][j].get()), width=1,
                                  height=1, relief="raised", font="/font/myfont 9", bg="#eee")
             canvas.create_window(250 + 40 * j + 10, 350 + 40 * i, window=somme[i][j])
     canvas.create_text(200, 350 + (40 * nb2 / 2) - 20, text="A + B =", font="/font/myfont 13", fill="black")
 
 
-def operation_stockmorse(window, canvas, mat, n, bouton):  # Codage morse d'une matrice
+def operation_stockmorse(window, canvas, mat, n, bouton):
     try:
         for a in range(n):
             for b in range(n):
