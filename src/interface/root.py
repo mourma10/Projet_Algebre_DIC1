@@ -94,7 +94,8 @@ def root_menu():
 def root_syslineaires_menu():
     root_clear()
     canvas = creer_canvas(root)
-    bouton_prec = Button(root, text="Precedent", relief="raised", font="/font/myfont 8 bold", command=root_menu,
+    bouton_prec = Button(root, text="Precedent", relief="raised", font="/font/myfont 8 bold",
+                         command=root_menu,
                          bg="#eee", fg="black", activebackground="#dcc")
     bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="raised",
                           font="/font/myfont 8 bold",
@@ -116,7 +117,8 @@ def root_syslineaires_menu():
 def root_opmatrices_menu():  # Choix de l'opération à affectuer
     root_clear()
     canvas = creer_canvas(root)
-    bouton_prec = Button(root, text="Precedent", relief="raised", font="/font/myfont 8 bold", command=root_menu,
+    bouton_prec = Button(root, text="Precedent", relief="raised", font="/font/myfont 8 bold",
+                         command=root_menu,
                          bg="#eee", fg="black", activebackground="#dcc")
     bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="raised",
                           font="/font/myfont 8 bold",
@@ -128,7 +130,8 @@ def root_opmatrices_menu():  # Choix de l'opération à affectuer
     morse = Button(root, text="Stockage morse matrice", command=root_bouton_morse, relief="raised",
                    font="/font/myfont 9 bold",
                    bg="#eee", fg="black", activebackground="#dcc")
-    produit = Button(root, text="Produit de deux matrices", command=root_bouton_produitmatrice, relief="raised",
+    produit = Button(root, text="Produit de deux matrices", command=root_bouton_produitmatrice,
+                     relief="raised",
                      font="/font/myfont 9 bold", bg="#eee", fg="black", activebackground="#dcc")
     somme = Button(root, text="Somme de deux matrices", command=root_bouton_sommematrice, relief="raised",
                    font="/font/myfont 9 bold",
@@ -168,7 +171,7 @@ def root_bouton_methodegauss():
     root_navigation(root_bouton_methodegauss, canvas, root_syslineaires_menu)
 
 
-def root_bouton_morse():  # (On instancie la fonction saisie_1mat pour le stockage morse:ici saiz=affiche_saisiemorse
+def root_bouton_morse():
     root_clear()
     canvas = creer_canvas(root)
     canvas.create_text(dimx_ / 2 + 40, dimy_ / 32, text="Stockage morse d'une matrice",
@@ -178,7 +181,7 @@ def root_bouton_morse():  # (On instancie la fonction saisie_1mat pour le stocka
     root_navigation(root_bouton_morse, canvas, root_opmatrices_menu)
 
 
-def root_bouton_inverse():  # On instancie la fonction saisie_1mat pour l'inverse:ici saiz=affiche_saisieinverse
+def root_bouton_inverse():
     root_clear()
     canvas = creer_canvas(root)
     canvas.create_text(dimx_ / 2 + 10, dimy_ / 32, text="Inverse d'une matrice", font="/font/myfont 9 bold",
@@ -190,7 +193,8 @@ def root_bouton_inverse():  # On instancie la fonction saisie_1mat pour l'invers
 def root_bouton_determinant():
     root_clear()
     canvas = creer_canvas(root)
-    canvas.create_text(dimx_ / 2 + 40, dimy_ / 32, text="Determinant d'une matrice", font="/font/myfont 9 bold",
+    canvas.create_text(dimx_ / 2 + 40, dimy_ / 32, text="Determinant d'une matrice",
+                       font="/font/myfont 9 bold",
                        fill="black")
     saisie_1matrice(root, canvas, affiche_saisiedet)
     root_navigation(root_bouton_determinant, canvas, root_opmatrices_menu)
@@ -199,13 +203,14 @@ def root_bouton_determinant():
 def root_bouton_transposee():
     root_clear()
     canvas = creer_canvas(root)
-    canvas.create_text(dimx_ / 2 + 40, dimy_ / 32, text="Transposee d'une matrice", font="/font/myfont 9 bold",
+    canvas.create_text(dimx_ / 2 + 40, dimy_ / 32, text="Transposee d'une matrice",
+                       font="/font/myfont 9 bold",
                        fill="black")
     saisie_1matrice(root, canvas, affiche_saisietrans)
     root_navigation(root_bouton_transposee, canvas, root_opmatrices_menu)
 
 
-def root_bouton_sommematrice():  # On instancie la fonction saisie_mat pour la somme:ici op=op_somme
+def root_bouton_sommematrice():
     root_clear()
     canvas = creer_canvas(root)
     canvas.create_text(dimx_ / 2 + 60, dimy_ / 32, text="Somme de deux matrices", font="/font/myfont 9 bold",
@@ -214,10 +219,11 @@ def root_bouton_sommematrice():  # On instancie la fonction saisie_mat pour la s
     root_navigation(root_bouton_sommematrice, canvas, root_opmatrices_menu)
 
 
-def root_bouton_produitmatrice():  # On instancie la fonction saisie_mat pour le produit:ici op=op_produit
+def root_bouton_produitmatrice():
     root_clear()
     canvas = creer_canvas(root)
-    canvas.create_text(dimx_ / 2 + 60, dimy_ / 32, text="Produit de deux matrices", font="/font/myfont 9 bold",
+    canvas.create_text(dimx_ / 2 + 60, dimy_ / 32, text="Produit de deux matrices",
+                       font="/font/myfont 9 bold",
                        fill="black")
     saisie_2matrices(root, canvas, affiche_saisieproduit)
     root_navigation(root_bouton_produitmatrice, canvas, root_opmatrices_menu)
@@ -227,7 +233,8 @@ def root_bouton_enregistrement():
     root_clear()
     canvas = creer_canvas(root)
     entry = Button(root, text="", width=25, height=1, relief="raised", bg="white")
-    button = Button(root, text="Record", width=4, command=lambda: operation_record, font="/font/myfont 8 bold",
+    button = Button(root, text="Record", width=4, command=lambda: operation_record,
+                    font="/font/myfont 8 bold",
                     relief="raised", bg="white")
     root_navigation(root_bouton_enregistrement, canvas, root_menu)
     canvas.create_window(dimx_ / 2 + 70, dimy_ / 2 - 25, window=entry)

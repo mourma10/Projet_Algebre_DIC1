@@ -32,7 +32,8 @@ def saisie_1matrice(window, canvas, saiz):
     ligne.pack()
 
     bouton_ok = Button(window, text="Ok", relief="raised", font="/font/myfont 6 bold",
-                       command=lambda: saiz(window, canvas, ligne.get(), bouton_ok), bg="#eee", fg="black",
+                       command=lambda: saiz(window, canvas, ligne.get(), bouton_ok), bg="#eee",
+                       fg="black",
                        activebackground="#dcc", width=3)
     canvas.create_window(150, 20, window=ligne)
     canvas.create_window(240, 20, window=bouton_ok)
@@ -95,7 +96,8 @@ def affiche_saisie_2matrices(window, canvas, a, b, c, d, bouton, res, typeop):
                 canvas.create_window(420 + 30 * l, 100 + 30 * k, window=case2[k][l])
         bouton_ok = Button(window, text="Ok", relief="raised",
                            command=lambda: res(window, canvas, case1, case2, a, b, c, d, bouton_ok),
-                           bg="#eee", fg="black", activebackground="#dcc", font="/font/myfont 6 bold", width=3)
+                           bg="#eee", fg="black", activebackground="#dcc",
+                           font="/font/myfont 6 bold", width=3)
         canvas.create_text(20, 100 + (30 * a / 2) - 20, text="A=", font="/font/myfont 13", fill="black")
         canvas.create_text(370, 100 + (30 * a / 2) - 20, text="B=", font="/font/myfont 13", fill="black")
         canvas.create_text((400 + 50 + 30 * b) / 2 - 10, 100 + (30 * b / 2) - 20, text=sign,
@@ -126,7 +128,8 @@ def affiche_saisiegauss(window, canvas, n1, bouton):
                            relief="raised",
                            command=lambda: operation_gauss(window, canvas, case, vecteur, n, bouton_ok))
         canvas.create_text(20, 100 + (35 * n / 2) - 20, text="A=", font="/font/myfont 13", fill="black")
-        canvas.create_text(180 + 35 * (n - 1) - 20, 100 + (35 * n / 2) - 20, text="b=", font="/font/myfont 13",
+        canvas.create_text(180 + 35 * (n - 1) - 20, 100 + (35 * n / 2) - 20, text="b=",
+                           font="/font/myfont 13",
                            fill="black")
         canvas.create_window(250 + 35 * n + 30, 100 + (35 * n / 2) - 20, window=bouton_ok)
     except ValueError:

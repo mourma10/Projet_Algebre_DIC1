@@ -75,9 +75,11 @@ def operation_stockmorse(window, canvas, mat, n, bouton):
     for i in range(n):
         for j in range(n):
             if float(mat[i][j].get()) != 0.0:
-                indiceligne[x] = Button(window, text=i, width=1, height=1, relief="raised", font="/font/myfont 9",
+                indiceligne[x] = Button(window, text=i, width=1, height=1, relief="raised",
+                                        font="/font/myfont 9",
                                         bg="#eee")
-                indicecolonne[x] = Button(window, text=j, width=1, height=1, relief="raised", font="/font/myfont 9",
+                indicecolonne[x] = Button(window, text=j, width=1, height=1, relief="raised",
+                                          font="/font/myfont 9",
                                           bg="#eee")
                 elmtnonnul[x] = Button(window, text=mat[i][j].get(), width=1, height=1, relief="raised",
                                        font="/font/myfont 9",
@@ -128,7 +130,8 @@ def operation_inverse(window, canvas, mat, n, bouton):
                 if i != k:
                     var1 = float(newmat[i][k])
                     for colonnebis in range(2 * n):
-                        newmat[i][colonnebis] = float(newmat[i][colonnebis]) - (float(newmat[k][colonnebis]) * var1)
+                        newmat[i][colonnebis] = float(newmat[i][colonnebis]) - \
+                                                (float(newmat[k][colonnebis]) * var1)
             k += 1
         else:
             inversible = 0
@@ -285,7 +288,8 @@ def operation_gauss(window, canvas, mat, vect, n, bouton):
                                  font="/font/myfont 9 bold",
                                  bg="#eee")
             canvas.create_window(150, 300 + 35 * s, window=solution[s])
-        canvas.create_text(70, 300 + (35 * n / 2) - 20, text="Solution=", font="/font/myfont 12 bold", fill="black")
+        canvas.create_text(70, 300 + (35 * n / 2) - 20, text="Solution=", font="/font/myfont 12 bold",
+                           fill="black")
 
 
 def operation_record():
