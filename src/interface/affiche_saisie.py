@@ -60,7 +60,6 @@ def affiche_saisie_1matrice(window, canvas, n, bouton, res):
         canvas.create_window(50 + 35 * n + 30, 100 + (35 * n / 2) - 20, window=bouton_ok)
     except ValueError:
         showerror("Erreur :-/", "Veuillez saisir un entier positif!")
-        return -1
 
 
 def affiche_saisie_2matrices(window, canvas, a, b, c, d, bouton, res, typeop):
@@ -106,7 +105,6 @@ def affiche_saisie_2matrices(window, canvas, a, b, c, d, bouton, res, typeop):
         canvas.create_window(400 + 50 + 30 * a, 100 + (30 * a / 2) - 20, window=bouton_ok)
     except ValueError:
         showerror("Erreur :-/", "Veuillez saisir des entiers positifs!")
-        return -1
 
 
 def affiche_saisiegauss(window, canvas, n1, bouton):
@@ -134,7 +132,6 @@ def affiche_saisiegauss(window, canvas, n1, bouton):
         canvas.create_window(250 + 35 * n + 30, 100 + (35 * n / 2) - 20, window=bouton_ok)
     except ValueError:
         showerror("Error", "Veuillez saisir un entier positif!")
-        return -1
 
 
 def affiche_saisiemorse(window, canvas, n, bouton):
