@@ -2,24 +2,8 @@
 
 from Tkinter import Entry
 
+from .getroot import *
 from .operations import *
-
-(dimx_, dimy_) = (800, 600)
-
-
-def create_root():
-    iam_root = Tk()
-    iam_root.title("Projet Python DIC1")
-    w_ = iam_root.winfo_screenwidth()
-    h = iam_root.winfo_screenheight()
-    x = w_ / 2 - dimx_ / 2
-    y = h / 2 - dimy_ / 2
-    iam_root.geometry("%dx%d+%d+%d" % ((dimx_, dimy_) + (x, y)))
-    iam_root.resizable(False, False)
-    return iam_root
-
-
-root = create_root()
 
 
 def saisie_2matrices(window, canvas):
@@ -154,11 +138,11 @@ def affiche_bouton_operationssyslin(canvas, mat, vect, n, bouton):
     bouton.destroy()
     bouton_gauss = Button(root, command=lambda: operation_gauss(mat, vect, n),
                           text="Methode de GAUSS",
-                          relief="raised", font="/font/myfont 9 bold", bg="#eee", fg="black",
+                          relief="raised", font="/font/myfont 15 bold", bg="#eee", fg="black",
                           activebackground="#dcc")
     bouton_lu = Button(root, command=lambda: operation_lu(mat, vect, n),
                        text="Factorisation LU",
-                       relief="raised", font="/font/myfont 9 bold", bg="#eee", fg="black",
+                       relief="raised", font="/font/myfont 15 bold", bg="#eee", fg="black",
                        activebackground="#dcc")
     canvas.create_window(dimx_ / 4 + 100, 100 + 35 * n + 30, window=bouton_gauss)
     canvas.create_window(dimx_ / 4 + 400, 100 + 35 * n + 30, window=bouton_lu)
@@ -174,22 +158,22 @@ def affiche_boutons_operations1matrice(canvas, mat, n, bouton):
         return -1
     morse = Button(root, text="Stockage morse matrice", command=lambda: operation_stockmorse(mat, n, bouton),
                    relief="raised",
-                   font="/font/myfont 9 bold",
+                   font="/font/myfont 11 bold",
                    bg="#eee", fg="black", activebackground="#dcc")
     inverser = Button(root, text="    Inverse d'une matrice",
                       command=lambda: operation_inverse(mat, n, bouton),
                       relief="raised",
-                      font="/font/myfont 9 bold", bg="#eee", fg="black", activebackground="#dcc")
+                      font="/font/myfont 11 bold", bg="#eee", fg="black", activebackground="#dcc")
     determinant = Button(root, text="   Determinant matrice     ", command=lambda: operation_determinant(
-        mat, n, bouton), relief="raised", font="/font/myfont 9 bold",
+        mat, n, bouton), relief="raised", font="/font/myfont 11 bold",
                          bg="#eee", fg="black", activebackground="#dcc")
     trans = Button(root, text="    Transposee matrice      ",
                    command=lambda: operation_transposee(mat, n, bouton), relief="raised",
-                   font="/font/myfont 9 bold",
+                   font="/font/myfont 11 bold",
                    bg="#eee", fg="black", activebackground="#dcc")
     bouton_valeurpropre = Button(root, command="",
                                  text="Valeurs Propres matrice",
-                                 relief="raised", font="/font/myfont 9 bold", bg="#eee", fg="black",
+                                 relief="raised", font="/font/myfont 11 bold", bg="#eee", fg="black",
                                  activebackground="#dcc")
     canvas.create_window(dimx_ / 4 + 100, 100 + 35 * n + 30, window=morse)
     canvas.create_window(dimx_ / 4 + 100, 100 + 35 * n + 80, window=inverser)

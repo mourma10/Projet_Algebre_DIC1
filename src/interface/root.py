@@ -1,13 +1,5 @@
 # -*-coding:UTF-8-*
 
-try:
-    from Tkinter import Tk, Canvas
-except ImportError:
-    Tk = None
-    Canvas = None
-    print("veuillez installer Tkinter : sudo apt-get install python-tk")
-    exit()
-
 from tkMessageBox import askyesno
 
 from .affiche_saisie import *
@@ -55,10 +47,10 @@ def root_menu():
                           fg="black", activebackground="#dcc")
     bouton_operation = Button(root, command=root_opmatrices_menu, text="Opérations Sur Les Matrices",
                               relief="raised",
-                              font="/font/myfont 10 bold", bg="#eee", fg="black", activebackground="#dcc")
+                              font="/font/myfont 15 bold", bg="#eee", fg="black", activebackground="#dcc")
     bouton_syslin = Button(root, command=root_syslineaires_menu,
                            text="      Systémes Linéaires       ",
-                           relief="raised", font="/font/myfont 10 bold", bg="#eee", fg="black",
+                           relief="raised", font="/font/myfont 15 bold", bg="#eee", fg="black",
                            activebackground="#dcc")
     canvas.create_window(dimx_ / 4 + 30, dimy_ / 2 - 12, window=bouton_operation)
     canvas.create_window(dimx_ / 4 + 30 + 390, dimy_ / 2 - 12, window=bouton_syslin)
@@ -81,10 +73,10 @@ def root_opmatrices_menu():  # Choix de l'opération à affectuer
                        font="/font/myfont 15 "
                             "bold", fill="#544")
     bouton_1matrice = Button(root, text="Operations sur une matrice", relief="raised",
-                             font="/font/myfont 10 bold", command=root_op1matrices_menu,
+                             font="/font/myfont 14 bold", command=root_op1matrices_menu,
                              bg="#eee", fg="black", activebackground="#dcc")
     bouton_2matrice = Button(root, text="Operations sur deux matrices", relief="raised",
-                             font="/font/myfont 10 bold", command=root_op2matrices_menu,
+                             font="/font/myfont 14 bold", command=root_op2matrices_menu,
                              bg="#eee", fg="black", activebackground="#dcc")
     canvas.create_window(dimx_ / 4 + 30, dimy_ / 2 - 12, window=bouton_1matrice)
     canvas.create_window(dimx_ / 4 + 30 + 390, dimy_ / 2 - 12, window=bouton_2matrice)
