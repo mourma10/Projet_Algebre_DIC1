@@ -1,9 +1,28 @@
+# -*-coding:UTF-8-*
+
 from Tkinter import Entry
 
 from .operations import *
 
+(dimx_, dimy_) = (800, 600)
 
-def saisie_2matrices(window, canvas, op):
+
+def create_root():
+    iam_root = Tk()
+    iam_root.title("Projet Python DIC1")
+    w_ = iam_root.winfo_screenwidth()
+    h = iam_root.winfo_screenheight()
+    x = w_ / 2 - dimx_ / 2
+    y = h / 2 - dimy_ / 2
+    iam_root.geometry("%dx%d+%d+%d" % ((dimx_, dimy_) + (x, y)))
+    iam_root.resizable(False, False)
+    return iam_root
+
+
+root = create_root()
+
+
+def saisie_2matrices(window, canvas):
     canvas.create_text(60, 20, text="Donner N1,C1", font="/font/myfont 10 bold", fill="black")
     canvas.create_text(60, 60, text="Donner N2,C2", font="/font/myfont 10 bold", fill="black")
     ligne1 = Entry(window, relief="raised", width=3, bg="#eee")
@@ -15,8 +34,9 @@ def saisie_2matrices(window, canvas, op):
     col1.pack()
     col2.pack()
     bouton_ok = Button(window, text="Ok", relief="raised", font="/font/myfont 6 bold",
-                       command=lambda: op(window, canvas, ligne1.get(), col1.get(), ligne2.get(),
-                                          col2.get(), bouton_ok), bg="#eee", fg="black",
+                       command=lambda: affiche_saisie_2matrices(window, canvas, ligne1.get(),
+                                                                col1.get(), ligne2.get(), col2.get(),
+                                                                bouton_ok), bg="#eee", fg="black",
                        activebackground="#dcc", width=3)
     canvas.create_window(150, 20, window=ligne1)
     canvas.create_window(220, 20, window=col1)
@@ -32,15 +52,14 @@ def saisie_1matrice(window, canvas, saiz):
     ligne.pack()
 
     bouton_ok = Button(window, text="Ok", relief="raised", font="/font/myfont 6 bold",
-                       command=lambda: saiz(window, canvas, ligne.get(), bouton_ok), bg="#eee",
-                       fg="black",
-                       activebackground="#dcc", width=3)
+                       command=lambda: saiz(window, canvas, ligne.get(), bouton_ok),
+                       bg="#eee", fg="black", activebackground="#dcc", width=3)
     canvas.create_window(150, 20, window=ligne)
     canvas.create_window(240, 20, window=bouton_ok)
     canvas.pack()
 
 
-def affiche_saisie_1matrice(window, canvas, n, bouton, res):
+def affiche_saisie_1matrice(window, canvas, n, bouton):
     try:
         n = int(n)
         if n == 0:
@@ -55,14 +74,16 @@ def affiche_saisie_1matrice(window, canvas, n, bouton, res):
         bouton_ok = Button(window, text="Ok", bg="#eee", font="/font/myfont 6 bold", fg="black",
                            activebackground="#dcc",
                            width=3,
-                           relief="raised", command=lambda: res(window, canvas, case, n, bouton_ok))
+                           relief="raised", command=lambda: affiche_boutons_operations1matrice(canvas,
+                                                                                               case, n,
+                                                                                               bouton_ok))
         canvas.create_text(20, 100 + (35 * n / 2) - 20, text="A=", font="/font/myfont 13", fill="black")
         canvas.create_window(50 + 35 * n + 30, 100 + (35 * n / 2) - 20, window=bouton_ok)
     except ValueError:
         showerror("Erreur :-/", "Veuillez saisir un entier positif!")
 
 
-def affiche_saisie_2matrices(window, canvas, a, b, c, d, bouton, res, typeop):
+def affiche_saisie_2matrices(window, canvas, a, b, c, d, bouton):
     try:
         a = int(a)
         b = int(b)
@@ -71,17 +92,6 @@ def affiche_saisie_2matrices(window, canvas, a, b, c, d, bouton, res, typeop):
         if (a, b, c, d) == (0, 0, 0, 0):
             showerror("Erreur", "Veuillez saisir des entiers strictement positifs")
             return -1
-        sign = ' '
-        if typeop == "somme":
-            sign = '+'
-            if (a != c) | (b != d):
-                showerror("Erreur", "Somme Impossible")
-                return -1
-        if typeop == "produit":
-            sign = '*'
-            if b != c:
-                showerror("Erreur", "Produit Impossible")
-                return -1
         bouton.destroy()
         case1 = [[0] * b for _ in range(a)]
         case2 = [[0] * d for _ in range(c)]
@@ -92,22 +102,20 @@ def affiche_saisie_2matrices(window, canvas, a, b, c, d, bouton, res, typeop):
         for k in range(c):
             for l in range(d):
                 case2[k][l] = Entry(window, width=3, relief="raised", font="/font/myfont 8", bg="#eee")
-                canvas.create_window(420 + 30 * l, 100 + 30 * k, window=case2[k][l])
+                canvas.create_window(dimx_ / 2 + 30 * l, 100 + 30 * k, window=case2[k][l])
         bouton_ok = Button(window, text="Ok", relief="raised",
-                           command=lambda: res(window, canvas, case1, case2, a, b, c, d, bouton_ok),
+                           command=lambda: affiche_boutons_operation2matrices(canvas, case1, case2, a,
+                                                                              b, c, d, bouton_ok),
                            bg="#eee", fg="black", activebackground="#dcc",
                            font="/font/myfont 6 bold", width=3)
         canvas.create_text(20, 100 + (30 * a / 2) - 20, text="A=", font="/font/myfont 13", fill="black")
         canvas.create_text(370, 100 + (30 * a / 2) - 20, text="B=", font="/font/myfont 13", fill="black")
-        canvas.create_text((400 + 50 + 30 * b) / 2 - 10, 100 + (30 * b / 2) - 20, text=sign,
-                           font="/font/myfont 20",
-                           fill="black")
         canvas.create_window(400 + 50 + 30 * a, 100 + (30 * a / 2) - 20, window=bouton_ok)
     except ValueError:
         showerror("Erreur :-/", "Veuillez saisir des entiers positifs!")
 
 
-def affiche_saisiegauss(window, canvas, n1, bouton):
+def affiche_saisiesyslin(window, canvas, n1, bouton):
     try:
         n = int(n1)
         bouton.destroy()
@@ -124,7 +132,8 @@ def affiche_saisiegauss(window, canvas, n1, bouton):
                            activebackground="#dcc",
                            width=3,
                            relief="raised",
-                           command=lambda: operation_gauss(window, canvas, case, vecteur, n, bouton_ok))
+                           command=lambda: affiche_bouton_operationssyslin(canvas, case, vecteur, n,
+                                                                           bouton_ok))
         canvas.create_text(20, 100 + (35 * n / 2) - 20, text="A=", font="/font/myfont 13", fill="black")
         canvas.create_text(180 + 35 * (n - 1) - 20, 100 + (35 * n / 2) - 20, text="b=",
                            font="/font/myfont 13",
@@ -134,27 +143,78 @@ def affiche_saisiegauss(window, canvas, n1, bouton):
         showerror("Error", "Veuillez saisir un entier positif!")
 
 
-def affiche_saisiemorse(window, canvas, n, bouton):
-    affiche_saisie_1matrice(window, canvas, n, bouton, operation_stockmorse)
+def affiche_bouton_operationssyslin(canvas, mat, vect, n, bouton):
+    try:
+        for a in range(n):
+            for b in range(n):
+                float(mat[a][b].get())
+            float(vect[a].get())
+    except ValueError:
+        showerror("Erreur", "Veuillez saisir des reels!")
+    bouton.destroy()
+    bouton_gauss = Button(root, command=lambda: operation_gauss(mat, vect, n),
+                          text="Methode de GAUSS",
+                          relief="raised", font="/font/myfont 9 bold", bg="#eee", fg="black",
+                          activebackground="#dcc")
+    bouton_lu = Button(root, command=lambda: operation_lu(mat, vect, n),
+                       text="Factorisation LU",
+                       relief="raised", font="/font/myfont 9 bold", bg="#eee", fg="black",
+                       activebackground="#dcc")
+    canvas.create_window(dimx_ / 4 + 100, 100 + 35 * n + 30, window=bouton_gauss)
+    canvas.create_window(dimx_ / 4 + 400, 100 + 35 * n + 30, window=bouton_lu)
 
 
-def affiche_saisieinverse(window, canvas, n, bouton):
-    affiche_saisie_1matrice(window, canvas, n, bouton, operation_inverse)
+def affiche_boutons_operations1matrice(canvas, mat, n, bouton):
+    try:
+        for a in range(n):
+            for b in range(n):
+                float(mat[a][b].get())
+    except ValueError:
+        showerror("Erreur", "Veuillez saisir des réels!")
+        return -1
+    morse = Button(root, text="Stockage morse matrice", command=lambda: operation_stockmorse(mat, n, bouton),
+                   relief="raised",
+                   font="/font/myfont 9 bold",
+                   bg="#eee", fg="black", activebackground="#dcc")
+    inverser = Button(root, text="    Inverse d'une matrice",
+                      command=lambda: operation_inverse(mat, n, bouton),
+                      relief="raised",
+                      font="/font/myfont 9 bold", bg="#eee", fg="black", activebackground="#dcc")
+    determinant = Button(root, text="   Determinant matrice     ", command=lambda: operation_determinant(
+        mat, n, bouton), relief="raised", font="/font/myfont 9 bold",
+                         bg="#eee", fg="black", activebackground="#dcc")
+    trans = Button(root, text="    Transposee matrice      ",
+                   command=lambda: operation_transposee(mat, n, bouton), relief="raised",
+                   font="/font/myfont 9 bold",
+                   bg="#eee", fg="black", activebackground="#dcc")
+    bouton_valeurpropre = Button(root, command="",
+                                 text="Valeurs Propres matrice",
+                                 relief="raised", font="/font/myfont 9 bold", bg="#eee", fg="black",
+                                 activebackground="#dcc")
+    canvas.create_window(dimx_ / 4 + 100, 100 + 35 * n + 30, window=morse)
+    canvas.create_window(dimx_ / 4 + 100, 100 + 35 * n + 80, window=inverser)
+    canvas.create_window(dimx_ / 4 + 350, 100 + 35 * n + 30, window=determinant)
+    canvas.create_window(dimx_ / 4 + 350, 100 + 35 * n + 80, window=trans)
+    canvas.create_window(dimx_ / 4 + 100, 100 + 35 * n + 130, window=bouton_valeurpropre)
 
 
-def affiche_saisiedet(window, canvas, n, bouton):
-    affiche_saisie_1matrice(window, canvas, n, bouton, operation_determinant)
-
-
-def affiche_saisietrans(window, canvas, n, bouton):
-    affiche_saisie_1matrice(window, canvas, n, bouton, operation_transposee)
-
-
-def affiche_saisiesomme(window, canvas, nb1, nb2, nb3, nb4, bouton):
-    affiche_saisie_2matrices(window, canvas, nb1, nb2, nb3, nb4, bouton, operation_somme, "somme")
-
-
-def affiche_saisieproduit(window, canvas, nb1, nb2, nb3, nb4, bouton):
-    affiche_saisie_2matrices(window, canvas, nb1, nb2, nb3, nb4, bouton, operation_produit, "produit")
+def affiche_boutons_operation2matrices(canvas, mat1, mat2, a, b, c, d, bouton):
+    try:
+        for i in range(a):
+            for j in range(b):
+                float(mat1[i][j].get())
+        for x in range(c):
+            for y in range(d):
+                float(mat2[x][y].get())
+    except ValueError:
+        showerror("Erreur", "Veuillez saisir des réels!")
+    produit = Button(root, text="Produit", command=lambda: operation_produit(
+        mat1, mat2, a, b, c, d, bouton), relief="raised",
+                     font="/font/myfont 12 bold", bg="#eee", fg="black", activebackground="#dcc")
+    somme = Button(root, text="Somme", command=lambda: operation_somme(mat1, mat2, a, b, c, d, bouton),
+                   relief="raised", font="/font/myfont 12 bold",
+                   bg="#eee", fg="black", activebackground="#dcc")
+    canvas.create_window(dimx_ / 4 + 50, 250 + 35 * a, window=somme)
+    canvas.create_window(dimx_ / 4 + 50 + 250, 250 + 35 * a, window=produit)
 
 # M.TALL 2015-2016

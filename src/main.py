@@ -8,7 +8,7 @@ def presentation():  # Ma Présentation
     root_clear()
     canvas_fen = creer_canvas(root)
     canvas_fen.create_text(dimx_ / 2 + 8, dimy_ / 2 + 5, text="Projet Python 2015-2016",
-                           font="/font/myfont 45 bold",
+                           font="/font/myfont 35 bold",
                            fill="#544")
     bouton_suiv = Button(root, text="Suivant", command=root_menu, relief="raised",
                          font="/font/myfont 8 bold",
