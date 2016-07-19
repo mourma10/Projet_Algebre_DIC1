@@ -10,11 +10,11 @@ def presentation():  # Ma Présentation
     canvas_fen.create_text(dimx_ / 2 + 8, dimy_ / 2 + 5, text="Projet Python 2015-2016",
                            font="/font/myfont 35 bold",
                            fill="#544")
-    bouton_suiv = Button(root, text="Suivant", command=root_menu, relief="raised",
+    bouton_suiv = Button(root, text="Suivant", command=root_menu, relief="groove",
                          font="/font/myfont 8 bold",
                          bg="#eee",
                          fg="black", activebackground="#dcc")
-    bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="raised",
+    bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="groove",
                           font="/font/myfont 8 bold",
                           bg="#eee",
                           fg="black", activebackground="#dcc")

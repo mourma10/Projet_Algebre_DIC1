@@ -1,8 +1,10 @@
 # -*-coding:UTF-8-*
 
 from tkMessageBox import askyesno
+from Tkinter import Canvas
 
 from .affiche_saisie import *
+from .getroot import root, dimy_
 
 
 def creer_canvas(window):  # Création du canvas qui sera utilisé sur toutes les fenêtres
@@ -26,9 +28,9 @@ def root_clear():  # Effacer la fenêtre
 
 
 def root_navigation(canvas, back):
-    bouton_prec = Button(root, text="Precedent", relief="raised", font="/font/myfont 8 bold", command=back,
+    bouton_prec = Button(root, text="Precedent", relief="groove", font="/font/myfont 8 bold", command=back,
                          bg="#eee", fg="black", activebackground="#dcc")
-    bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="raised",
+    bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="groove",
                           font="/font/myfont 8 bold",
                           bg="#eee",
                           fg="black", activebackground="#dcc")
@@ -41,16 +43,16 @@ def root_menu():
     root_clear()
     canvas = creer_canvas(root)
     canvas.create_text(dimx_ / 2 - 10, 20, text="   MENU", font="/font/myfont 20 bold", fill="#544")
-    bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="raised",
+    bouton_quitt = Button(root, text="Quitter", command=root_fermer, relief="groove",
                           font="/font/myfont 8 bold",
                           bg="#eee",
                           fg="black", activebackground="#dcc")
     bouton_operation = Button(root, command=root_opmatrices_menu, text="Opérations Sur Les Matrices",
-                              relief="raised",
+                              relief="groove",
                               font="/font/myfont 15 bold", bg="#eee", fg="black", activebackground="#dcc")
     bouton_syslin = Button(root, command=root_syslineaires_menu,
                            text="      Systémes Linéaires       ",
-                           relief="raised", font="/font/myfont 15 bold", bg="#eee", fg="black",
+                           relief="groove", font="/font/myfont 15 bold", bg="#eee", fg="black",
                            activebackground="#dcc")
     canvas.create_window(dimx_ / 4 + 30, dimy_ / 2 - 12, window=bouton_operation)
     canvas.create_window(dimx_ / 4 + 30 + 390, dimy_ / 2 - 12, window=bouton_syslin)
@@ -72,10 +74,10 @@ def root_opmatrices_menu():  # Choix de l'opération à affectuer
     canvas.create_text(dimx_ / 2 - 10, 20, text="    Operations de bases sur les matrices",
                        font="/font/myfont 15 "
                             "bold", fill="#544")
-    bouton_1matrice = Button(root, text="Operations sur une matrice", relief="raised",
+    bouton_1matrice = Button(root, text="Operations sur une matrice", relief="groove",
                              font="/font/myfont 14 bold", command=root_op1matrices_menu,
                              bg="#eee", fg="black", activebackground="#dcc")
-    bouton_2matrice = Button(root, text="Operations sur deux matrices", relief="raised",
+    bouton_2matrice = Button(root, text="Operations sur deux matrices", relief="groove",
                              font="/font/myfont 14 bold", command=root_op2matrices_menu,
                              bg="#eee", fg="black", activebackground="#dcc")
     canvas.create_window(dimx_ / 4 + 30, dimy_ / 2 - 12, window=bouton_1matrice)

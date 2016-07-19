@@ -1,30 +1,18 @@
 # -*-coding:UTF-8 -*
 
 import time
-from Tkinter import Button, Tk, Canvas
+from Tkinter import Button
 from tkMessageBox import showinfo, showerror
 
-
-def root_operation(n, title):
-    root_op = Tk()
-    canvas = Canvas(root_op, width=200 * n - 100, height=100 * n - 50, bg="#cdd")
-    w_ = root_op.winfo_screenwidth()
-    h = root_op.winfo_screenheight()
-    x = w_ / 2 - (200 * n - 100) / 2
-    y = h / 2 - (100 * n - 50) / 2
-    root_op.title(title)
-    root_op.geometry("%dx%d+%d+%d" % ((200 * n - 100, 100 * n - 50) + (x, y)))
-    root_op.resizable(False, False)
-    return root_op, canvas
+from .getroot import root_operation
 
 
-def operation_produit(mat1, mat2, nb1, nb2, nb3, nb4, bouton):
+def operation_produit(mat1, mat2, nb1, nb2, nb3, nb4):
     if nb2 != nb3:
         showerror("Erreur", "Produit Impossible")
         return -1
     else:
         (root_produit, canvas) = root_operation(nb1, "Produit de matrices")
-        bouton.destroy()
         produit = [[0] * nb4 for _ in range(nb1)]
         prod = [[0] * nb4 for _ in range(nb1)]
         for i in range(nb1):
@@ -32,38 +20,36 @@ def operation_produit(mat1, mat2, nb1, nb2, nb3, nb4, bouton):
                 produit[i][j] = 0
                 for k in range(nb2):
                     produit[i][j] += float(mat1[i][k].get()) * float(mat2[k][j].get())
-                prod[i][j] = Button(root_produit, text=produit[i][j], relief="raised", width=1, height=1,
+                prod[i][j] = Button(root_produit, text=produit[i][j], relief="groove", width=1, height=1,
                                     font="/font/myfont 9 bold", bg="#eee")
-                canvas.create_window((200 * nb1 - 100) / 2 - 20 + 45 * j, (100 * nb1 - 50) / 2 + 30 * i,
+                canvas.create_window((200 * nb1 - 100) / 2 - 10 + 45 * j, (100 * nb1 - 50) / 4 + 25 + 30 * i,
                                      window=prod[i][j])
-        canvas.create_text(40, ((100 * nb1 - 50) / 2 + 30 * nb1) / 2 + 10, text="A * B =",
-                           font="/font/myfont 12 bold", fill="black")
+        canvas.create_text((200 * nb1 - 100) / 2 - 60, ((100 * nb1 - 50) / 2 + 30 * nb1) / 2 + 10,
+                           text="A * B =", font="/font/myfont 10 bold", fill="black")
         canvas.pack()
 
 
-def operation_somme(mat1, mat2, nb1, nb2, nb3, nb4, bouton):
+def operation_somme(mat1, mat2, nb1, nb2, nb3, nb4):
     if (nb1 != nb3) | (nb2 != nb4):
         showerror("Erreur", "Somme Impossible")
         return -1
     else:
         (root_somme, canvas) = root_operation(nb1, "Somme de matrices")
-        bouton.destroy()
         somme = [[0] * nb2 for _ in range(nb1)]
         for i in range(nb1):
             for j in range(nb2):
                 somme[i][j] = Button(root_somme, text=float(mat1[i][j].get()) + float(mat2[i][j].get()),
-                                     width=1, height=1, relief="raised",
+                                     width=1, height=1, relief="groove",
                                      font="/font/myfont 9 bold", bg="#eee")
-                canvas.create_window((200 * nb1 - 100) / 2 - 20 + 45 * j, (100 * nb1 - 50) / 2 + 30 * i,
+                canvas.create_window((200 * nb1 - 100) / 2 - 10 + 45 * j, (100 * nb1 - 50) / 4 + 25 + 30 * i,
                                      window=somme[i][j])
-        canvas.create_text(40, ((100 * nb1 - 50) / 2 + 30 * nb1) / 2 + 10, text="A + B =",
-                           font="/font/myfont 12 bold", fill="black")
+            canvas.create_text((200 * nb1 - 100) / 2 - 60, ((100 * nb1 - 50) / 2 + 30 * nb1) / 2 + 10,
+                               text="A + B =", font="/font/myfont 10 bold", fill="black")
         canvas.pack()
 
 
-def operation_stockmorse(mat, n, bouton):
+def operation_stockmorse(mat, n):
     (root_morse, canvas) = root_operation(n, "Stockage Morse de la matrice")
-    bouton.destroy()
     k = 0
     for i in range(n):
         for j in range(n):
@@ -76,34 +62,36 @@ def operation_stockmorse(mat, n, bouton):
     for i in range(n):
         for j in range(n):
             if float(mat[i][j].get()) != 0.0:
-                indiceligne[x] = Button(root_morse, text=i, width=1, height=1, relief="raised",
+                indiceligne[x] = Button(root_morse, text=i, width=1, height=1, relief="groove",
                                         font="/font/myfont 9",
                                         bg="#eee")
-                indicecolonne[x] = Button(root_morse, text=j, width=1, height=1, relief="raised",
+                indicecolonne[x] = Button(root_morse, text=j, width=1, height=1, relief="groove",
                                           font="/font/myfont 9",
                                           bg="#eee")
-                elmtnonnul[x] = Button(root_morse, text=mat[i][j].get(), width=1, height=1, relief="raised",
+                elmtnonnul[x] = Button(root_morse, text=mat[i][j].get(), width=1, height=1, relief="groove",
                                        font="/font/myfont 9",
                                        bg="#eee")
-                canvas.create_window(100 + 40 * x, 30, window=indiceligne[x])
-                canvas.create_window(100 + 40 * x, 60, window=indicecolonne[x])
-                canvas.create_window(100 + 40 * x, 90, window=elmtnonnul[x])
+                canvas.create_window(100 + 40 * x, (100 * n - 50) / 2 - 25, window=indiceligne[x])
+                canvas.create_window(100 + 40 * x, (100 * n - 50) / 2, window=indicecolonne[x])
+                canvas.create_window(100 + 40 * x, (100 * n - 50) / 2 + 25, window=elmtnonnul[x])
                 x += 1
-    canvas.create_text(50, 30, text="indices i", font="/font/myfont 9 bold", fill="black")
-    canvas.create_text(50, 60, text="indices j", font="/font/myfont 9 bold", fill="black")
-    canvas.create_text(50, 90, text="A[i][j]<> 0", font="/font/myfont 9 bold", fill="black")
+    canvas.create_text(50, (100 * n - 50) / 2 - 20, text="indices i", font="/font/myfont 9 bold",
+                       fill="black")
+    canvas.create_text(50, (100 * n - 50) / 2, text="indices j", font="/font/myfont 9 bold", fill="black")
+    canvas.create_text(50, (100 * n - 50) / 2 + 20, text="A[i][j]", font="/font/myfont 9 bold",
+                       fill="black")
     canvas.pack()
 
 
-def operation_inverse(mat, n, bouton):
+def operation_inverse(mat, n):
     matid = [[0] * n for _ in range(n)]
     newmat = [[0] * (2 * n) for _ in range(n)]
     for i in range(n):  # Creation de la matrice identité
         for j in range(n):
             if i == j:
-                matid[i][j] = 1
+                matid[i][j] = 1.0
             else:
-                matid[i][j] = 0
+                matid[i][j] = 0.0
 
     for a in range(n):  # On cree la matrice n lignes 2n colonnes
         for b in range(2 * n):
@@ -129,7 +117,6 @@ def operation_inverse(mat, n, bouton):
             k += 1
         else:
             inversible = 0
-    bouton.destroy()
     if inversible == 1:  # Affichage de la matrice inverse
         (root_inverse, canvas) = root_operation(n, "Inverse de la matrice")
         inv = [[0] * (2 * n) for _ in range(n)]
@@ -137,19 +124,18 @@ def operation_inverse(mat, n, bouton):
         while i < n:
             j = n
             while j < 2 * n:
-                inv[i][j] = Button(root_inverse, text=round(newmat[i][j], 2), relief="raised",
+                inv[i][j] = Button(root_inverse, text=round(newmat[i][j], 2), relief="groove",
                                    width=1, height=1,
                                    font="/font/myfont 9 bold", bg="#eee")
-                # canvas.create_window(40 + 45 * j, 50 + 30 * i, window=inv[i][j])
-                canvas.create_window((200 * n - 100) / 2 - 200 + 50 * j, (100 * n - 50) / 2 - 20 + 40 * i,
+                canvas.create_window((200 * n - 100) / 2 - 200 + 50 * j, (100 * n - 50) / 2 - 30 + 40 * i,
                                      window=inv[i][j])
                 j += 1
             i += 1
-        canvas.create_text((200 * n - 100) / 2 - 200, (100 * n - 50) / 2 + 10, text="Inv(A) = ",
+        canvas.create_text((200 * n - 100) / 2 - 100, (100 * n - 50) / 2 + 10, text="Inv(A)= ",
                            font="/font/myfont 12", fill="black")
         canvas.pack()
     else:
-        showinfo("Oups! :-/", "La matrice n'est pas inversible")
+        showinfo(":-/", "La matrice n'est pas inversible")
 
 
 def permcol(mat, n, j, i):
@@ -166,9 +152,8 @@ def proddiag(mat, n):
     return p
 
 
-def operation_determinant(mat1, n1, bouton):
+def operation_determinant(mat1, n1):
     (root_det, canvas) = root_operation(n1, "Determinant de la matrice")
-    bouton.destroy()
     mat = [[0] * n1 for _ in range(n1)]
     for a in range(n1):
         for b in range(n1):
@@ -185,17 +170,16 @@ def operation_determinant(mat1, n1, bouton):
             else:
                 permcol(mat, n1, j + 1, j)
                 sign *= -1
-    determinant = Button(root_det, text=round(sign * proddiag(mat, n1), 2), relief="raised", width=3,
+    determinant = Button(root_det, text=round(sign * proddiag(mat, n1), 2), relief="groove", width=3,
                          height=1, font="/font/myfont 15 bold", bg="#eee")
-    canvas.create_text((200 * n1 - 100) / 2 - 90, (100 * n1 - 50) / 2 + 30, text="det(M) = ",
+    canvas.create_text((200 * n1 - 100) / 2 - 90, (100 * n1 - 50) / 2 - 20, text="det(M) = ",
                        font="/font/myfont 12 bold", fill="black")
-    canvas.create_window((200 * n1 - 100) / 2, (100 * n1 - 50) / 2 + 30, window=determinant)
+    canvas.create_window((200 * n1 - 100) / 2, (100 * n1 - 50) / 2 - 20, window=determinant)
     canvas.pack()
 
 
-def operation_transposee(mat1, n, bouton):
+def operation_transposee(mat1, n):
     (root_trans, canvas) = root_operation(n, "Transposee de la matrice")
-    bouton.destroy()
     mat = [[0] * n for _ in range(n)]
     trans = [[0] * n for _ in range(n)]
     for i in range(n):
@@ -203,7 +187,7 @@ def operation_transposee(mat1, n, bouton):
             mat[i][j] = int(mat1[i][j].get())
     for a in range(n):
         for b in range(n):
-            trans[a][b] = Button(root_trans, text=mat[b][a], relief="raised", width=1, height=1,
+            trans[a][b] = Button(root_trans, text=mat[b][a], relief="groove", width=1, height=1,
                                  font="/font/myfont 9 bold",
                                  bg="#eee")
             canvas.create_window((200 * n - 100) / 2 - 50 + 45 * b, (100 * n - 50) / 2 + 50 * a,
@@ -273,7 +257,7 @@ def operation_gauss(mat, vect, n):
         t4 = time.time() - t3
         t = t2 + t4
         for s in range(n):
-            solution[s] = Button(root_gauss, text=round(x[s], 4), relief="raised", width=4, height=1,
+            solution[s] = Button(root_gauss, text=round(x[s], 4), relief="groove", width=4, height=1,
                                  font="/font/myfont 9 bold",
                                  bg="#eee")
             canvas.create_window((200 * n - 100) / 2 + 10, (100 * n - 100) / 2 + 35 * s, window=solution[s])
@@ -345,7 +329,7 @@ def factlu(mat1):
         else:
             arret = 1
     if (arret == 0) and (mat[n - 1][n - 1] != 0):
-        return l
+        return l, mat
     else:
         showerror("Erreur", "Resolution impossible")
         return -1
@@ -361,17 +345,16 @@ def operation_lu(mat, vect, n):
     for i in range(n):
         for j in range(n):
             mat1[i][j] = float(mat[i][j].get())
-    for k in range(n):
-        b[k] = float(vect[k].get())
+        b[i] = float(vect[i].get())
     t1 = time.time()
-    l = factlu(mat1)
+    l, u = factlu(mat1)
     if l != 0:
         y = descente(l, b)
         x = remonte(mat1, y)
         t2 = time.time()
         t = t2 - t1
         for s in range(len(x)):
-            solution[s] = Button(root_lu, text=round(x[s], 4), relief="raised", width=4, height=1,
+            solution[s] = Button(root_lu, text=round(x[s], 4), relief="groove", width=4, height=1,
                                  font="/font/myfont 9 bold", bg="#eee")
             canvas.create_window((300 * n - 100) / 2 - 40, 20 + 35 * s, window=solution[s])
         canvas.create_text((300 * n - 100) / 2 - 120, 20 + (35 * n / 2) - 20, text="Solution=",
@@ -381,15 +364,13 @@ def operation_lu(mat, vect, n):
                            font="/font/myfont 10 bold", fill="black")
         for i in range(n):
             for j in range(n):
-                matrice_l[i][j] = Button(root_lu, text=round(l[i][j], 4), relief="raised", width=4, height=1,
+                matrice_l[i][j] = Button(root_lu, text=round(l[i][j], 4), relief="groove", width=4, height=1,
                                          font="/font/myfont 9 bold", bg="#eee")
+                matrice_u[i][j] = Button(root_lu, text=round(u[i][j], 4), relief="groove", width=4,
+                                         height=1, font="/font/myfont 9 bold", bg="#eee")
                 canvas.create_window(90 + 60 * j + 10, 150 * n - 245 + 50 * i, window=matrice_l[i][j])
                 canvas.create_text(40, 150 * n - 245 + (50 * n / 2) - 20, text="L = ",
                                    font="/font/myfont 12 bold", fill="black")
-        for i in range(n):
-            for j in range(n):
-                matrice_u[i][j] = Button(root_lu, text=round(mat1[i][j], 4), relief="raised", width=4,
-                                         height=1, font="/font/myfont 9 bold", bg="#eee")
                 canvas.create_window((300 * n - 100) / 2 + 50 + 60 * j + 10, 150 * n - 245 + 50 * i,
                                      window=matrice_u[i][j])
                 canvas.create_text((300 * n - 100) / 2, 150 * n - 245 + (50 * n / 2) - 20, text="U = ",
